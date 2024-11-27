@@ -1,0 +1,41 @@
+# Server Configuration
+server:
+  port: 8080
+
+# Spring Configuration
+spring:
+  application:
+    name: flyway-example
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mydatabase
+    username: root
+    password: password
+    driver-class-name: org.postgresql.Driver
+    # Hikari Configuration
+    hikari:
+      maximum-pool-size: 10       # Max connections in HikariCP pool
+      minimum-idle: 5             # Minimum idle connections
+      idle-timeout: 30000         # Connection idle timeout (ms)
+      max-lifetime: 1800000       # Connection max lifetime (ms)
+      connection-timeout: 20000   # Connection timeout (ms)
+
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    validate-migration-naming: true
+    ignore-unsupported-database: true
+    locations: "classpath:db/migration"
+
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    show-sql: true                # Enable SQL query logging
+    open-in-view: false           # Best practice for production
